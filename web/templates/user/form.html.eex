@@ -12,6 +12,21 @@
               <p>generate_content_tag(error)</p>
             <%end%>
           </div>
+          <div class="row">
+            <% text_input f, :username, placeholder: "Password", class: "" %>
+            <% username_error_list = get_error_list(f.errors, :password)%>
+            <%= for error < username_error_list%>
+              <p>generate_content_tag(error)</p>
+            <%end%>
+          </div>
+          <div class="row">
+            <% text_input f, :username, placeholder: "Password Confirmation", class: "" %>
+            <% username_error_list = get_error_list(f.errors, :password_confirmation)%>
+            <%= for error < username_error_list%>
+              <p>generate_content_tag(error)</p>
+            <%end%>
+          </div>
+          <%= submit gettext "Create User", class: "waves-effect waves-light btn" %>
         <% end %>
       </div>
     </div>

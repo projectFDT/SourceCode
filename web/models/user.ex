@@ -30,12 +30,20 @@ defmodule Foundation.User do
     |> validate_format(:username, ~r/\w/, message: "Alphanumeric characters only")
     |> validate_length(:password, min: 8, max: 100)
     |> validate_confirmation(:password, message: "Passwords do not match")
+    |> generate_password_hash
   end
 
   defp generate_password_hash(changeset) do
     case changeset do
-      %Ecto.changeset{valid?: true, changes: %{password: pass}}
+      %Ecto.changeset{valid?: true, changes: %{password: pass}} ->
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+      _ ->
+        changeset
     end
+  end
+
+  defp random_string(length) do
+    :crypto.strong_rand_bytes(length) 
   end
 
 end

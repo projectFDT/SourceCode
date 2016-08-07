@@ -6,6 +6,24 @@ defmodule Foundation.ErrorHelpers do
   use Phoenix.HTML
 
   @doc """
+  This is a helper method that was created in order to ouput all the current
+  errors associated with a field. The error_tag method only provides a single
+  error this however returns all errors associated with the given key.
+  """
+  def get_error_list(error_keyword, key) do
+    Keyword.get_values(error_keyword_list, key)
+  end
+
+  @doc """
+  Generates the inlined error tag. Since the error_tag helper does not provide
+  a list of all things that may be incorrect we use a special method in order to
+  grab all such possible values. This method then is used to output each of the
+  values from that list one-by-one
+  """
+  def generate_content_tag(error) do
+    content_tag :span, translate_error(error), class: "help-block"
+  end
+  @doc """
   Generates tag for inlined form input errors.
   """
   def error_tag(form, field) do

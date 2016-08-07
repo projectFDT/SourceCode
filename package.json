@@ -2,7 +2,7 @@
   "name": "foundation",
   "version": "1.0.0",
   "description": "A site in order to teach kids how to code.",
-  "main": "index.js",
+  "main": "application.js",
   "directories": {
     "test": "test"
   },

@@ -12,10 +12,9 @@ config :foundation, Foundation.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    #Select this one if you want live reloading of the files, best for frontend
-    #node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color"]
-    #Select this option if you don't want live reloading.
-    node: ["node_modules/webpack/bin/webpack.js", "--color"]
+    #For front end development you might want to add, the "--watch" parameter too.
+    node: ["node_modules/webpack/bin/webpack.js", "--color",
+            "--display-error-details", cd:  Path.expand("..", __DIR__)]
   ]
 
 

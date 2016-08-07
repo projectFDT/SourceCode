@@ -51,6 +51,7 @@
 /* 1 */
 /***/ function(module, exports) {
 
+	//Entry point for the ReactJS Portion of the Application
 	"use strict";
 
 /***/ }

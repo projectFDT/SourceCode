@@ -7,29 +7,59 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Foundation!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <title>NAME OF OUR SITE HERE</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import Materialize Style Sheet-->
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/materialize.min.css")%>"  media="screen,projection">
+    <!--Import Our Style Sheet-->
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css")%>"  media="screen,projection">
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!--Import materialize.min.js-->
+    <script src="<%= static_path(@conn, "/js/materialize.min.js")%>"></script>
+    <!--Import our custom javascript-->
+    <script src="<%= static_path(@conn, "/js/application.js")%>"></script>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <!-- Body Contents -->
+    <div>
+      <!--The Header Div -->
+      <div>
+        <header class="header">
+          <nav role="navigation">
+            <div class="nav-wrapper">
+              <a href="/" class="brand-logo">Logo</a>
+              <a href="#" data-activates="mobile-navbar" class="button-collapse">
+                <i class="material-icons">menu</i>
+              </a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="<%= page_path @conn, :about %>">About</a></li>
+                <li><a href="<%= page_path @conn, :contact %>">Contact</a></li>
+              </ul>
+              <ul class="side-nav" id="mobile-navbar">
+                <li><a href="<%= page_path @conn, :about %>">About</a></li>
+                <li><a href="<%= page_path @conn, :contact %>">Contact</a></li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+      </div>
+      <!-- End of header -->
 
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
+      <!--  Start of the Main Container-->
+      <div>
+        <main role="main">
+          <div class="container">
+            <%= render @view_module, @view_template, assigns %>
+          </div>
+        </main>
+      </div>
+      <!-- End of content container -->
+    </div>
+    <!-- End of Body Contents -->
 
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

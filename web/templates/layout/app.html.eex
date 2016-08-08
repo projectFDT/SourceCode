@@ -38,10 +38,12 @@
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="<%= page_path @conn, :about %>">About</a></li>
                 <li><a href="<%= page_path @conn, :contact %>">Contact</a></li>
+                <li><a href="<%= user_path @conn, :new %>">Sign Up</a></li>
               </ul>
               <ul class="side-nav" id="mobile-navbar">
                 <li><a href="<%= page_path @conn, :about %>">About</a></li>
                 <li><a href="<%= page_path @conn, :contact %>">Contact</a></li>
+                <li><a href="<%= user_path @conn, :new %>">Sign Up</a></li>
               </ul>
             </div>
           </nav>

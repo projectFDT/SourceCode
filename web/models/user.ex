@@ -3,7 +3,7 @@ defmodule Foundation.User do
 
   import Ecto.Changeset
 
-  @fields ~w(name email password password_hash password_confirmation user_id_hash)a
+  @fields ~w(username email password password_hash password_confirmation user_id_hash)a
   @required_fields ~w(name email password password_confirmation)a
 
 

@@ -7,6 +7,7 @@ defmodule Foundation.UserController do
 
   def new(conn, _params) do
     changeset = User.changeset(%User{})
+    Logger.debug(inspect(changeset))
     render(conn, "new.html", changeset: changeset)
   end
 

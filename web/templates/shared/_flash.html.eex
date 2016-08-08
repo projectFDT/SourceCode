@@ -1,11 +1,11 @@
 <% info = get_flash(@conn, :info) %>
 <% error = get_flash(@conn, :error) %>
-<div id="flash-message-info">
+<div id="flash-message">
   <%= if info do %>
     <script>Materialize.toast('<%= info %>',7500)</script>
   <% end %>
 </div>
-<div id="flash-message-error">
+<div id="flash-message">
   <%= if error do %>
     <script>Materialize.toast('<%= error %>',7500)</script>
   <% end %>

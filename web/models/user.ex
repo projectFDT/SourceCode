@@ -4,7 +4,7 @@ defmodule Foundation.User do
   import Ecto.Changeset
 
   @fields ~w(username email password password_hash password_confirmation user_id_hash)a
-  @required_fields ~w(name email password password_confirmation)a
+  @required_fields ~w(username email password password_confirmation)a
 
 
   schema "users" do
@@ -20,7 +20,7 @@ defmodule Foundation.User do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params \\ %{}) do
+  def registration_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
     |> validate_required(@required_fields)

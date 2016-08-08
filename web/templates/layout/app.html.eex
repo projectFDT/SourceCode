@@ -51,6 +51,9 @@
       </div>
       <!-- End of header -->
 
+      <!--Flash Messages-->
+      <%= render Foundation.SharedView, "_flash.html", conn: @conn %>
+
       <!--  Start of the Main Container-->
       <div>
         <main role="main">

@@ -10,7 +10,7 @@ defmodule Foundation.ErrorHelpers do
   errors associated with a field. The error_tag method only provides a single
   error this however returns all errors associated with the given key.
   """
-  def get_error_list(error_keyword, key) do
+  def get_error_list(error_keyword_list, key) do
     Keyword.get_values(error_keyword_list, key)
   end
 

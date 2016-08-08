@@ -8,23 +8,23 @@
           <div class="row">
             <% text_input f, :username, placeholder: "Username", class: "" %>
             <% username_error_list = get_error_list(f.errors, :username)%>
-            <%= for error < username_error_list%>
+            <%= for error <- username_error_list do %>
               <p>generate_content_tag(error)</p>
-            <%end%>
+            <% end %>
           </div>
           <div class="row">
             <% text_input f, :username, placeholder: "Password", class: "" %>
-            <% username_error_list = get_error_list(f.errors, :password)%>
-            <%= for error < username_error_list%>
+            <% password_error_list = get_error_list(f.errors, :password)%>
+            <%= for error <- password_error_list do %>
               <p>generate_content_tag(error)</p>
-            <%end%>
+            <% end %>
           </div>
           <div class="row">
             <% text_input f, :username, placeholder: "Password Confirmation", class: "" %>
-            <% username_error_list = get_error_list(f.errors, :password_confirmation)%>
-            <%= for error < username_error_list%>
+            <% password_confirmation_error_list = get_error_list(f.errors, :password_confirmation)%>
+            <%= for error <- password_confirmation_error_list do %>
               <p>generate_content_tag(error)</p>
-            <%end%>
+            <% end %>
           </div>
           <%= submit gettext "Create User", class: "waves-effect waves-light btn" %>
         <% end %>

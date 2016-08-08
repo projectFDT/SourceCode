@@ -20,8 +20,8 @@ defmodule Foundation.Router do
     get "/about", PageController, :about
     get "/contact", PageController, :contact
 
-    resource "/users", UserController, only: [:create, :new]
-    get "users/:user_id_hash", UserController, :show
+    resources "/users", UserController, only: [:create, :new]
+    get "/users/:user_id_hash", UserController, :show
 
   end
 

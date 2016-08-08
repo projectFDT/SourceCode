@@ -3,7 +3,7 @@ defmodule Foundation.UserController do
 
   alias Foundation.User
 
-  import Logger
+  require Logger
 
   def new(conn, _params) do
     changeset = User.changeset(%User{})
@@ -12,7 +12,7 @@ defmodule Foundation.UserController do
 
   def create(conn, %{"user" => user_params}) do
     changeset = User.changeset(%User{}, user_params)
-    Logger.debug inspect changeset 
+    Logger.debug(inspect(changeset))
     case Repo.insert(changeset) do
       {:ok, _user} ->
         conn

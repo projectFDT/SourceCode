@@ -11,7 +11,7 @@ defmodule Foundation.User do
     field :username, :string
     field :email, :string
     field :password, :string, virtual: true
-    field :password_confirmation, :string virtual: true
+    field :password_confirmation, :string, virtual: true
     field :password_hash, :string
     field :user_id_hash, :string
     timestamps()
@@ -35,7 +35,7 @@ defmodule Foundation.User do
 
   defp generate_password_hash(changeset) do
     case changeset do
-      %Ecto.changeset{valid?: true, changes: %{password: pass}} ->
+      %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
         put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
       _ ->
         changeset
@@ -43,7 +43,7 @@ defmodule Foundation.User do
   end
 
   defp random_string(length) do
-    :crypto.strong_rand_bytes(length) 
+    :crypto.strong_rand_bytes(length)
   end
 
 end

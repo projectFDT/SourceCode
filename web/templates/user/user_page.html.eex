@@ -1,0 +1,2 @@
+<div id="user-content"></div>
+<script src="<%= static_path(@conn, "/js/application.js") %>"></script>

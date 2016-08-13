@@ -28,4 +28,9 @@ defmodule Foundation.UserController do
     end
   end
 
+  #Will need to change this to %{"user" => user_id_hash}
+  def show(conn, _params) do
+    render conn, "user_page.html", %{layout: {Foundation.LayoutView, "react.html"}}
+  end
+
 end

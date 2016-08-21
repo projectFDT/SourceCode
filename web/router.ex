@@ -13,20 +13,26 @@ defmodule Foundation.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Foundation do
-    pipe_through :browser # Use the default browser stack
+  # Other scopes may use custom stacks.
+  scope "/api", Foundation do
+    pipe_through :api
 
-    get "/", PageController, :index
-    get "/about", PageController, :about
-    get "/contact", PageController, :contact
-
-    resources "/users", UserController, only: [:create, :new]
-    get "/users/:user_id_hash", UserController, :show
+    scope "/v1" do
+      #Future api calls go here
+    end
 
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Foundation do
-  #   pipe_through :api
-  # end
+  scope "/", Foundation do
+    pipe_through :browser # Use the default browser stack
+    get "/*path", PageController, :index
+
+    #For now these are not commented out to allow the project to compile
+    get "/", PageController, :index
+    resources "/users", UserController, only: [:create, :new]
+    get "/users/:user_id_hash", UserController, :show
+
+
+  end
+
 end

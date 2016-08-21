@@ -67,7 +67,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var tag = document.getElementById("user-content"); //Entry point for the ReactJS Portion of the Application
+	var tag = document.getElementById("main_container"); //Entry point for the ReactJS Portion of the Application
 
 
 	_reactDom2.default.render(_react2.default.createElement(_index2.default, null), tag);
@@ -21549,33 +21549,37 @@
 	        "div",
 	        null,
 	        _react2.default.createElement(
-	          "ul",
-	          null,
+	          "nav",
+	          { role: "navigation" },
 	          _react2.default.createElement(
-	            "li",
-	            { href: "#" },
+	            "ul",
+	            null,
 	            _react2.default.createElement(
-	              "a",
-	              { href: "#" },
-	              "Home"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "li",
-	            { href: "#" },
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { href: "#" },
+	                "Home"
+	              )
+	            ),
 	            _react2.default.createElement(
-	              "a",
-	              { href: "#" },
-	              "About"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "li",
-	            { href: "#" },
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { href: "#" },
+	                "About"
+	              )
+	            ),
 	            _react2.default.createElement(
-	              "a",
-	              { href: "#" },
-	              "Contact"
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { href: "#" },
+	                "Contact"
+	              )
 	            )
 	          )
 	        )

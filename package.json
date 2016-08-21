@@ -22,7 +22,9 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
+    "invariant": "^2.2.1",
     "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react-dom": "^15.2.1",
+    "react-router": "^2.7.0"
   }
 }

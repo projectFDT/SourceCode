@@ -1,20 +1,20 @@
 import React from 'react';
-
-class Header extends React.Component {
+import {Link} from 'react-router';
+const Header = React.createClass ({
 
   render(){
     return(
     	<div>
-            <nav role="navigation">
+            <nav role="nav">
     		<ul>
-    			<li><a href="#">Home</a></li>
-    			<li><a href="#">About</a></li>
-    			<li><a href="#">Contact</a></li>
+    			<li><Link to="/">Home</Link></li>
+    			<li><Link to="/about">About</Link></li>
+    			<li><Link to="/contacts">Contact</Link></li>
     		</ul>
             </nav>
     	</div>
     );
   }
-}
+})
 
 export default Header;

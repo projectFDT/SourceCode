@@ -18,13 +18,13 @@ defmodule Foundation.UserController do
       {:ok, _user} ->
         Logger.debug "User created successfully"
         conn
-        |> put_flash(:info, "User created successfully.")
-        |> redirect(to: page_path(conn, :index))
+        #|> put_flash(:info, "User created successfully.")
+        #|> redirect(to: page_path(conn, :index))
       {:error, changeset} ->
         Logger.debug "User creation failed"
         conn
-        |> put_flash(:error, "Please fix the errors below")
-        |> render("new.html", changeset: changeset)
+        #|> put_flash(:error, "Please fix the errors below")
+        #|> render("new.html", changeset: changeset)
     end
   end
 

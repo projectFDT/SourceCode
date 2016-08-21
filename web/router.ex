@@ -19,6 +19,9 @@ defmodule Foundation.Router do
 
     scope "/v1" do
       #Future api calls go here
+      #For now these are not commented out to allow the project to compile
+      #resources "/users", UserController, only: [:create, :new, :index]
+      #get "/users/:user_id_hash", UserController, :show
     end
 
   end
@@ -26,12 +29,6 @@ defmodule Foundation.Router do
   scope "/", Foundation do
     pipe_through :browser # Use the default browser stack
     get "/*path", PageController, :index
-
-    #For now these are not commented out to allow the project to compile
-    get "/", PageController, :index
-    resources "/users", UserController, only: [:create, :new]
-    get "/users/:user_id_hash", UserController, :show
-
 
   end
 

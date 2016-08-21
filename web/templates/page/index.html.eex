@@ -1,5 +1,0 @@
-<!--Flash Messages-->
-<%= render Foundation.SharedView, "_flash.html", conn: @conn %>
-<div class="">
-
-</div>

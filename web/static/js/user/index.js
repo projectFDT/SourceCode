@@ -1,10 +1,14 @@
 import React from 'react';
-
+import Header from '../header/header.js';
+import Body from '../body/body.js';
 export default class Root extends React.Component {
 
   render(){
     return(
-      <h1>Here from react</h1>
+    <div>
+      <Header />
+      <Body />
+    </div>
     );
   }
 }

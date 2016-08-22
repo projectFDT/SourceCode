@@ -1,21 +1,19 @@
-import Root               from '../containers/index.js';
-import Contacts           from '../contacts/contacts.js';
-import About              from '../about/about.js';
-import Home               from '../home/home.js';
+import React               from 'react';
 
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import About               from '../components/landing/about';
+import Contact             from '../components/landing/contact';
+import Home                from '../components/landing/home';
 
-
+import { Router, Route, IndexRoute } from 'react-router';
 
 export default function configRoutes(){
 
+  return(
+    <Route path="/">
+      <IndexRoute component={Home} />
+      <Route path="/contacts" component={Contact} />
+      <Route path="/about" component={About}/ >
+    </Route>
+  );
+
 };
-
-
-const RouterFramework = (
-		<Route path="/" component={Root}>
-			<IndexRoute component={Home} />
-			<Route path="/contacts" component={Contacts} />
-			<Route path="/about" component={About}/ >
-		</Route>
-);

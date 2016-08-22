@@ -1,5 +1,4 @@
 import React               from 'react';
-import LandingHeader       from '../headers/landing_header';
 
 export default class Contact extends React.Component {
   constructor(props){
@@ -9,7 +8,6 @@ export default class Contact extends React.Component {
   render(){
     return(
       <div>
-        <LandingHeader />
         <h1>Contact Page</h1>
       </div>
     );

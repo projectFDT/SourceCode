@@ -6,11 +6,11 @@
 use Mix.Config
 
 # General application configuration
-config :foundation,
+config :Foundation,
   ecto_repos: [Foundation.Repo]
 
 # Configures the endpoint
-config :foundation, Foundation.Endpoint,
+config :Foundation, Foundation.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "EHHV+9ikD764OD2xfGYmnpyYY8LVszmupQk36md3MJDo2irSnBqFim9O7od5eM9F",
   render_errors: [view: Foundation.ErrorView, accepts: ~w(html json)],

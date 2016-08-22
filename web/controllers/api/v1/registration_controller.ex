@@ -1,7 +1,7 @@
-defmodule foundation.RegistrationController  do
-  use foundation.Web, :controller
+defmodule Foundation.RegistrationController  do
+  use Foundation.Web, :controller
 
-  alias foundation.{Repo, User}
+  alias Foundation.{Repo, User}
 
   plug :scrub_params, "user" when action in [:create]
 
@@ -14,12 +14,12 @@ defmodule foundation.RegistrationController  do
 
         conn
         |> put_status(:created)
-        |> render(foundation.SessionView, "show.json", jwt: jwt, user: user)
+        |> render(Foundation.SessionView, "show.json", jwt: jwt, user: user)
 
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(foundation.RegistrationView, "error.json", changeset: changeset)
+        |> render(Foundation.RegistrationView, "error.json", changeset: changeset)
     end
   end
 end

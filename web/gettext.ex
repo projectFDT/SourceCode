@@ -20,5 +20,5 @@ defmodule Foundation.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :foundation
+  use Gettext, otp_app: :Foundation
 end

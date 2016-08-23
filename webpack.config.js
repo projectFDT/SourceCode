@@ -38,7 +38,6 @@ let config = module.exports = {
       }
     ]
   },
-  watch: true,
   plugins: [],
 };
 

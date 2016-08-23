@@ -1,12 +1,15 @@
 import React              from 'react';
+import { Provider }       from 'react-redux';
 import { Router }         from 'react-router';
 import configRoutes       from '../routes/routes'
 
-const Root = ({routerHistory}) =>{
+const Root = ({routerHistory, store}) =>{
   return (
-    <Router history={routerHistory}>
-      {configRoutes()}
-    </Router>
+    <Provider store={store}>
+      <Router history={routerHistory}>
+        {configRoutes(store)}
+      </Router>
+    </Provider>
   );
 };
 

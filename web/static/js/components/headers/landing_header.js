@@ -14,6 +14,7 @@ export default class LandingHeader extends React.Component {
     		    <li><Link to="/">Home</Link></li>
     			  <li><Link to="/about">About</Link></li>
     			  <li><Link to="/contacts">Contact</Link></li>
+            <li><Link to="/new">Sign Up</Link></li>
     		  </ul>
         </nav>
     	</div>

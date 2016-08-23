@@ -13,7 +13,7 @@ config :foundation, Foundation.Endpoint,
   check_origin: false,
   watchers: [
     #For front end development you might want to add, the "--watch" parameter too.
-    node: ["node_modules/webpack/bin/webpack.js", "--color",
+    node: ["node_modules/webpack/bin/webpack.js", "--color","--watch",
             "--display-error-details", cd:  Path.expand("..", __DIR__)]
   ]
 

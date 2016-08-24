@@ -15,12 +15,12 @@ let config = module.exports = {
 
   output: {
     path: join('priv/static'),
-    filename: 'js/application.js',
+    filename: 'js/application.js'
   },
 
   resolve: {
     extesions: ['', '.js', '.jsx'],
-    modulesDirectories: ['node_modules'],
+    modulesDirectories: ['node_modules']
   },
 
   module: {
@@ -33,8 +33,8 @@ let config = module.exports = {
         query: {
           cacheDirectory: true,
           plugins: ['transform-decorators-legacy'],
-          presets: ['react', 'es2015', 'stage-2', 'stage-0'],
-        },
+          presets: ['react', 'es2015', 'stage-2', 'stage-0']
+        }
       }
     ]
   },

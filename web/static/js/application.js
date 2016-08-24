@@ -2,39 +2,58 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Root from './user/index.js';
-import Contacts from './contacts/contacts.js';
-import About from './about/about.js';
-import Home from './home/home.js';
-
+import Root from './components/user/index.js';
+import Contacts from './components/contacts/contacts.js';
+import About from './components/about/about.js';
+import Home from './components/home/home.js';
+import ContactForm from './components/signup/signup.js';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 
-// console.log(invariant(true, 'haha true'));
-// console.log(invariant(false, 'oh, no false'));
-const tag = document.getElementById("main_container");
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {reducer as formReducer} from 'redux-form';
+import thunk from 'redux-thunk';
+import  logger from "redux-logger";
 
-// ReactDOM.render(<Root />, tag);
+import {Provider} from 'react-redux'
+
+
+const reducers = {
+	form: formReducer
+}
+const reducer = combineReducers(reducers);
+
+
+
+// const middleware = applyMiddleware(thunk, logger());
+let store = createStore(reducer);
+store.dispatch({type: 'test'}); //test
+// console.log(store);
+
+const tag = document.getElementById("main_container");
+// console.log("store", store);
+
 
 const RouterFramework = (
+	<Provider store={store}>
 	<Router history={hashHistory}>
 		<Route path="/" component={Root}>
-			<IndexRoute component={Home} />
+			<IndexRoute component={Home}/>
 			<Route path="/contacts" component={Contacts} />
-			<Route path="/about" component={About}/ >
+			<Route path="/about" component={About} />
+			<Route path="/signup" component={ContactForm} />
 		</Route>
+
 	</Router>
+	</Provider>
 
 );
 
-ReactDOM.render (
+const render = () => {
+	ReactDOM.render (
 	RouterFramework
 	,document.getElementById("main_container")
-);
+	);
+}
 
-// ReactDOM.render((
-//   <Router history={hashHistory}>
-//     <Route path="/" component={Root}/>
-//     <Route path="/repos" component={Repos}/>
-//     <Route path="/about" component={About}/>
-//   </Router>
-// ), document.getElementById('app'))
+store.subscribe(render);
+render();

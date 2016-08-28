@@ -9,28 +9,16 @@ import Home from './components/home/home.js';
 import ContactForm from './components/signup/signup.js';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 
-import {createStore, combineReducers, applyMiddleware} from 'redux';
-import {reducer as formReducer} from 'redux-form';
-import thunk from 'redux-thunk';
-import  logger from "redux-logger";
+import {Provider} from 'react-redux';
 
-import {Provider} from 'react-redux'
-
-
-const reducers = {
-	form: formReducer
-}
-const reducer = combineReducers(reducers);
-
+import store from './store/store.js';
 
 
 // const middleware = applyMiddleware(thunk, logger());
-let store = createStore(reducer);
-store.dispatch({type: 'test'}); //test
-// console.log(store);
+// let store = createStore(reducer, applyMiddleware(thunk));
+// store.dispatch({type: 'test'});
 
-const tag = document.getElementById("main_container");
-// console.log("store", store);
+
 
 
 const RouterFramework = (

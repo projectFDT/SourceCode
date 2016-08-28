@@ -9,7 +9,7 @@ class Home extends React.Component {
 	}
 	  render(){
 	    const {store} = this.context;
-	    console.log("render", store);
+	    // console.log("render", store);
 	    return(
 	    	<div>
 	    		This is the Home

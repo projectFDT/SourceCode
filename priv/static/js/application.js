@@ -83,40 +83,23 @@
 
 	var _reactRouter = __webpack_require__(178);
 
-	var _redux = __webpack_require__(253);
-
-	var _reduxForm = __webpack_require__(245);
-
-	var _reduxThunk = __webpack_require__(321);
-
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-	var _reduxLogger = __webpack_require__(322);
-
-	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
-
 	var _reactRedux = __webpack_require__(246);
+
+	var _store = __webpack_require__(324);
+
+	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var reducers = {
-		form: _reduxForm.reducer
-	}; //Entry point for the ReactJS Portion of the Application
-
-	var reducer = (0, _redux.combineReducers)(reducers);
-
 	// const middleware = applyMiddleware(thunk, logger());
-	var store = (0, _redux.createStore)(reducer);
-	store.dispatch({ type: 'test' }); //test
-	// console.log(store);
-
-	var tag = document.getElementById("main_container");
-	// console.log("store", store);
+	// let store = createStore(reducer, applyMiddleware(thunk));
+	// store.dispatch({type: 'test'});
 
 
+	//Entry point for the ReactJS Portion of the Application
 	var RouterFramework = _react2.default.createElement(
 		_reactRedux.Provider,
-		{ store: store },
+		{ store: _store2.default },
 		_react2.default.createElement(
 			_reactRouter.Router,
 			{ history: _reactRouter.hashHistory },
@@ -135,7 +118,7 @@
 		_reactDom2.default.render(RouterFramework, document.getElementById("main_container"));
 	};
 
-	store.subscribe(render);
+	_store2.default.subscribe(render);
 	render();
 
 /***/ },
@@ -27405,7 +27388,7 @@
 /* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -27438,15 +27421,15 @@
 		}
 
 		_createClass(Home, [{
-			key: "render",
+			key: 'render',
 			value: function render() {
 				var store = this.context.store;
+				// console.log("render", store);
 
-				console.log("render", store);
 				return _react2.default.createElement(
-					"div",
+					'div',
 					null,
-					"This is the Home"
+					'This is the Home'
 				);
 			}
 		}]);
@@ -27480,6 +27463,8 @@
 
 	var _reduxForm = __webpack_require__(245);
 
+	var _signupActions = __webpack_require__(321);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27488,96 +27473,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// function validateForm(data){
-	//   const errors = {}
-	//   console.log(data)
-	//   if (!data.username || data.username.length == 0) {
-	//     errors.username = 'Username required'
-	//   } 
-
-	//   if(data.password.length < 6 || data.passwordAgain.length < 6){
-	//     errors.password = 'Password must be at least 6 characters';
-	//   } else if (data.password != data.passwordAgain){
-	//     errors.password = 'You entered two different passwords';
-	//   }
-
-	//   if (!data.email) {
-	//     errors.email = 'Email required'
-	//   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
-	//     errors.email = 'Invalid email address'
-	//   }
-
-	//   return errors
-	// }
-
-	// class SignupForm extends Component {
-	//   handleSubmit(e){
-	//     console.log(e)
-	//   }
-	//   render() {
-	//     const { fields: { username, email, password, passwordAgain }, handleSubmit } = this.props
-	//     return (
-	//       <form onSubmit={handleSubmit(this.handleSubmit)}>
-	//         <div>
-	//           <label>Username</label>
-	//           <div>
-	//             <input type="text" placeholder="Username" {...username}/>
-	//           </div>
-	//           {username.touched && username.error && <div>{username.error}</div>}
-	//         </div>
-	//         <div>
-	//           <label>Email</label>
-	//           <div>
-	//             <input type="text" placeholder="Email" {...email}/>
-	//           </div>
-	//           {email.touched && email.error && <div>{email.error}</div>}
-	//         </div>
-	//         <div>
-	//           <label>Password</label>
-	//           <div>
-	//             <input type="text" placeholder="Password" {...password}/>
-	//           </div>
-	//           {password.touched && password.error && <div>{password.error}</div>}
-	//         </div>
-	//         <div>
-	//           <label>Re-enter Password</label>
-	//           <div>
-	//             <input type="text" placeholder="Password Again" {...passwordAgain}/>
-	//           </div>
-	//           {passwordAgain.touched && passwordAgain.error && <div>{passwordAgain.error}</div>}
-	//         </div>
-	//         <div>
-	//           <button type="submit">
-	//             Submit
-	//           </button>
-
-	//         </div>
-	//       </form>
-	//     )
-	//   }
-	// }
-
-	// SignupForm.propTypes = {
-	//   fields: PropTypes.object.isRequired,
-	//   handleSubmit: PropTypes.func.isRequired
-	// }
-
-	// SignupForm = reduxForm({
-	//   form: 'Signup',
-	//   fields: [ 'username', 'email', 'password', "passwordAgain" ],
-	//   validate: validateForm
-	// })(SignupForm);
-
-	// export default SignupForm;
-
-
 	function validateSignup(data) {
 
 	  var errors = {};
 	  if (!data.username) {
 	    errors.username = 'Required';
 	  }
-	  if (data.password) {
+	  if (data.password != undefined && data.passwordAgain != undefined) {
 	    if (data.password.length < 6 || data.passwordAgain.length < 6) {
 	      errors.password = 'Password must be at least 6 characters';
 	    } else if (data.password != data.passwordAgain) {
@@ -27585,7 +27487,6 @@
 	    }
 	  }
 
-	  // console.log(data.password)
 	  if (!data.email) {
 	    errors.email = 'Email required';
 	  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
@@ -27598,18 +27499,28 @@
 	var ContactForm = function (_Component) {
 	  _inherits(ContactForm, _Component);
 
-	  function ContactForm() {
+	  function ContactForm(props, context) {
 	    _classCallCheck(this, ContactForm);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ContactForm).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ContactForm).call(this, props, context));
+
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    // var {store} = this.context;
+	    // console.log("store",store);
+	    return _this;
 	  }
 
 	  _createClass(ContactForm, [{
 	    key: 'handleSubmit',
-	    value: function handleSubmit(e) {
+	    value: function handleSubmit(data) {
 	      //do stuff here
-	      console.log("handleSubmit here!", e);
+	      // e.preventDefault();
+	      console.log("handleSubmit here!", data);
 	      // make ajax call here
+	      // console.log("context in handleSubmit", this.context);
+	      var store = this.context.store;
+
+	      store.dispatch((0, _signupActions.signupPostRequest)(data));
 	    }
 	  }, {
 	    key: 'render',
@@ -27621,7 +27532,7 @@
 	      var password = _props$fields.password;
 	      var passwordAgain = _props$fields.passwordAgain;
 	      var handleSubmit = _props.handleSubmit;
-
+	      // console.log("context",this.context)
 
 	      return _react2.default.createElement(
 	        'form',
@@ -27690,7 +27601,9 @@
 	  handleSubmit: _react.PropTypes.func,
 	  fields: _react.PropTypes.object
 	};
-
+	ContactForm.contextTypes = {
+	  store: _react2.default.PropTypes.object.isRequired
+	};
 	ContactForm = (0, _reduxForm.reduxForm)({
 	  form: 'contact', // the username of your form and the key to               // where your form's state will be mounted
 	  fields: ['username', 'email', 'password', 'passwordAgain'], // a list of all your fields in your form
@@ -32651,6 +32564,49 @@
 /* 321 */
 /***/ function(module, exports) {
 
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.signupPostRequest = signupPostRequest;
+	exports.signupSuccess = signupSuccess;
+	exports.signupFailure = signupFailure;
+	//SIGN UP ACTIONS
+
+
+	// export function submitSignupForm(data){
+	// 	return {
+	// 		type: 'SUBMIT_SIGNUP_FORM',
+	// 		data: data
+	// 	}
+	// }
+
+	function signupPostRequest(data) {
+		console.log("dispatch signupPost action");
+		return {
+			type: 'SUBMIT_SIGNUP_FORM',
+			data: data
+		};
+	}
+
+	function signupSuccess(data, response) {
+		console.log("dispatch signup success action");
+		return {
+			type: 'SIGNUP_SUCESS'
+		};
+	}
+	function signupFailure(data, error) {
+		console.log("dispatch signup failure action");
+		return {
+			type: 'SIGNUP_FAILURE'
+		};
+	}
+
+/***/ },
+/* 322 */
+/***/ function(module, exports) {
+
 	'use strict';
 
 	exports.__esModule = true;
@@ -32676,7 +32632,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 322 */
+/* 323 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32907,6 +32863,104 @@
 	}
 
 	module.exports = createLogger;
+
+/***/ },
+/* 324 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _redux = __webpack_require__(253);
+
+	var _reduxForm = __webpack_require__(245);
+
+	var _reduxThunk = __webpack_require__(322);
+
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+	var _reduxLogger = __webpack_require__(323);
+
+	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
+	var _signupReducer = __webpack_require__(325);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var reducers = {
+		form: _reduxForm.reducer,
+		signupReducer: _signupReducer.signupReducer
+	};
+
+	var reducer = (0, _redux.combineReducers)(reducers);
+
+	var store = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	store.dispatch({ type: 'test' });
+
+	exports.default = store;
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	exports.signupReducer = signupReducer;
+
+	var _store = __webpack_require__(324);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _signupActions = __webpack_require__(321);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var initialState = {
+		username: undefined,
+		password: undefined,
+		email: undefined
+	};
+
+	function signupReducer() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+		var action = arguments[1];
+
+		if (action.type == "SUBMIT_SIGNUP_FORM") {
+			var _ret = function () {
+				// console.log("submit signup form reducer works");
+				// const ajaxCall = 
+				var ajaxCall = function ajaxCall(data) {
+					return new Promise(function (resolve, reject) {
+						resolve("pretend success");
+					});
+				};
+
+				var data = action.data;
+				ajaxCall(data).then(function (response) {
+					console.log(response);
+					_store2.default.dispatch((0, _signupActions.signupSuccess)(data, response));
+				}).catch(function (error) {
+					console.log(error);
+					_store2.default.dispatch((0, _signupActions.signupFailure)(data, error));
+				});
+				return {
+					v: state
+				};
+			}();
+
+			if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+		} else if (action.type == "SIGNUP_SUCCESS") {} else if (action.type == "SIGNUP_FAILURE") {}
+		return state;
+	}
 
 /***/ }
 /******/ ]);

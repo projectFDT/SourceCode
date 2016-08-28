@@ -1,62 +1,59 @@
 import React, { Component, PropTypes }       from 'react';
-import { reduxForm }                         from 'redux-form';
-import SimpleCard                            from '../../layouts/SimpleCard.js'
+import { reduxForm, Field  }                 from 'redux-form';
+import SimpleCard                            from '../../layouts/simple_card.js'
+
 
 class SignUp extends Component {
+
+  static propTypes = {
+    handleSubmit: PropTypes.func
+  }
+
   constructor(props){
     super(props);
   }
 
-  _onSubmit(e){
-    e.preventDefault();
-    console.log("HERE");
+  _onSubmit(data){
+    console.log(data);
   }
 
-  render(){
-    console.log(this.props);
-    const {fields: {username, email, password, passwordAgain}, handleSubmit} = this.props;
 
+  render(){
+    const { handleSubmit } = this.props;
     return(
       <SimpleCard>
         <span className="card-title black-text">Sign Up</span>
         <form onSubmit={handleSubmit(this._onSubmit)}>
           <div className="row">
-            <label>Username</label>
-            <input type="text" {...username}/>
-            {username.error && username.touched && <div>{username.error}</div>}
+            <label htmlFor="username">Username</label>
+            <Field name="username" component={renderInput} type="text"/>
           </div>
-
           <div className="row">
-            <label>Email Address</label>
-            <input type="text" {...email}/>
-            {email.error && email.touched && <div>{email.error}</div>}
+            <label htmlFor="email">Email</label>
+            <Field name="email" component={renderInput} type="text"/>
           </div>
-
           <div className="row">
-            <label>Password</label>
-            <input type="password" {...password}/>
-            {password.error && password.touched && <div>{password.error}</div>}
+            <label htmlFor="password">Password</label>
+            <Field name="password" component={renderInput} type="password"/>
           </div>
-
           <div className="row">
-            <label>Re-Enter Password</label>
-            <input type="password" {...passwordAgain}/>
-            {passwordAgain.error && passwordAgain.touched && <div>{passwordAgain.error}</div>}
+            <label htmlFor="passwordConf">Confirm Password</label>
+            <Field name="passwordConf" component={renderInput} type="password"/>
           </div>
-
-        <button type='submit' className="waves-effect waves-light btn">Submit</button>
+          <button type='submit' className="waves-effect waves-light btn">Submit</button>
         </form>
       </SimpleCard>
     );
   }
 }
 
-SignUp.propTypes = {
-  handleSubmit: PropTypes.func,
-  fields: PropTypes.array
-}
-
 export default reduxForm({
-  form: 'register',
-  fields: ['username', 'email', 'password', 'passwordAgain']
+  form: 'signUp'
 })(SignUp);
+
+
+const renderInput = field =>
+  <div>
+    <input {...field.input} type={field.type}/>
+    {field.meta.touched && field.meta.error && <span className="error">{field.meta.error}</span>}
+  </div>

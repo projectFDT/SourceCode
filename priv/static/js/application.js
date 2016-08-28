@@ -69,7 +69,7 @@
 
 	var _root2 = _interopRequireDefault(_root);
 
-	var _store = __webpack_require__(443);
+	var _store = __webpack_require__(444);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -29006,7 +29006,7 @@
 
 	var _sign_up2 = _interopRequireDefault(_sign_up);
 
-	var _landing_layout = __webpack_require__(441);
+	var _landing_layout = __webpack_require__(442);
 
 	var _landing_layout2 = _interopRequireDefault(_landing_layout);
 
@@ -29205,15 +29205,17 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _class, _temp;
+
 	var _react = __webpack_require__(4);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reduxForm = __webpack_require__(271);
 
-	var _SimpleCard = __webpack_require__(447);
+	var _simple_card = __webpack_require__(448);
 
-	var _SimpleCard2 = _interopRequireDefault(_SimpleCard);
+	var _simple_card2 = _interopRequireDefault(_simple_card);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29223,7 +29225,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SignUp = function (_Component) {
+	var SignUp = (_temp = _class = function (_Component) {
 	  _inherits(SignUp, _Component);
 
 	  function SignUp(props) {
@@ -29234,25 +29236,16 @@
 
 	  _createClass(SignUp, [{
 	    key: '_onSubmit',
-	    value: function _onSubmit(e) {
-	      e.preventDefault();
-	      console.log("HERE");
+	    value: function _onSubmit(data) {
+	      console.log(data);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props);
-	      var _props = this.props;
-	      var _props$fields = _props.fields;
-	      var username = _props$fields.username;
-	      var email = _props$fields.email;
-	      var password = _props$fields.password;
-	      var passwordAgain = _props$fields.passwordAgain;
-	      var handleSubmit = _props.handleSubmit;
-
+	      var handleSubmit = this.props.handleSubmit;
 
 	      return _react2.default.createElement(
-	        _SimpleCard2.default,
+	        _simple_card2.default,
 	        null,
 	        _react2.default.createElement(
 	          'span',
@@ -29267,60 +29260,40 @@
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'label',
-	              null,
+	              { htmlFor: 'username' },
 	              'Username'
 	            ),
-	            _react2.default.createElement('input', _extends({ type: 'text' }, username)),
-	            username.error && username.touched && _react2.default.createElement(
-	              'div',
-	              null,
-	              username.error
-	            )
+	            _react2.default.createElement(_reduxForm.Field, { name: 'username', component: renderInput, type: 'text' })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'label',
-	              null,
-	              'Email Address'
+	              { htmlFor: 'email' },
+	              'Email'
 	            ),
-	            _react2.default.createElement('input', _extends({ type: 'text' }, email)),
-	            email.error && email.touched && _react2.default.createElement(
-	              'div',
-	              null,
-	              email.error
-	            )
+	            _react2.default.createElement(_reduxForm.Field, { name: 'email', component: renderInput, type: 'text' })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'label',
-	              null,
+	              { htmlFor: 'password' },
 	              'Password'
 	            ),
-	            _react2.default.createElement('input', _extends({ type: 'password' }, password)),
-	            password.error && password.touched && _react2.default.createElement(
-	              'div',
-	              null,
-	              password.error
-	            )
+	            _react2.default.createElement(_reduxForm.Field, { name: 'password', component: renderInput, type: 'password' })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'label',
-	              null,
-	              'Re-Enter Password'
+	              { htmlFor: 'passwordConf' },
+	              'Confirm Password'
 	            ),
-	            _react2.default.createElement('input', _extends({ type: 'password' }, passwordAgain)),
-	            passwordAgain.error && passwordAgain.touched && _react2.default.createElement(
-	              'div',
-	              null,
-	              passwordAgain.error
-	            )
+	            _react2.default.createElement(_reduxForm.Field, { name: 'passwordConf', component: renderInput, type: 'password' })
 	          ),
 	          _react2.default.createElement(
 	            'button',
@@ -29333,17 +29306,26 @@
 	  }]);
 
 	  return SignUp;
-	}(_react.Component);
-
-	SignUp.propTypes = {
-	  handleSubmit: _react.PropTypes.func,
-	  fields: _react.PropTypes.array
-	};
-
+	}(_react.Component), _class.propTypes = {
+	  handleSubmit: _react.PropTypes.func
+	}, _temp);
 	exports.default = (0, _reduxForm.reduxForm)({
-	  form: 'register',
-	  fields: ['username', 'email', 'password', 'passwordAgain']
+	  form: 'signUp'
 	})(SignUp);
+
+
+	var renderInput = function renderInput(field) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement('input', _extends({}, field.input, { type: field.type })),
+	    field.meta.touched && field.meta.error && _react2.default.createElement(
+	      'span',
+	      { className: 'error' },
+	      field.meta.error
+	    )
+	  );
+	};
 
 /***/ },
 /* 271 */
@@ -38115,7 +38097,8 @@
 	exports.default = propTypes;
 
 /***/ },
-/* 441 */
+/* 441 */,
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38131,7 +38114,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _landing_header = __webpack_require__(442);
+	var _landing_header = __webpack_require__(443);
 
 	var _landing_header2 = _interopRequireDefault(_landing_header);
 
@@ -38174,7 +38157,7 @@
 	exports.default = LandingLayout;
 
 /***/ },
-/* 442 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38269,7 +38252,7 @@
 	exports.default = LandingHeader;
 
 /***/ },
-/* 443 */
+/* 444 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -38283,7 +38266,7 @@
 
 	var _reactRouterRedux = __webpack_require__(99);
 
-	var _reducers = __webpack_require__(444);
+	var _reducers = __webpack_require__(445);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -38294,7 +38277,7 @@
 	  var middlewares = [reduxRouterMiddleware];
 
 	  if (process.env.NODE_ENV === 'development') {
-	    var createLogger = __webpack_require__(446);
+	    var createLogger = __webpack_require__(447);
 	    var logger = createLogger({
 	      level: 'info',
 	      collapsed: true
@@ -38307,7 +38290,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 444 */
+/* 445 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38320,7 +38303,9 @@
 
 	var _reactRouterRedux = __webpack_require__(99);
 
-	var _session = __webpack_require__(445);
+	var _reduxForm = __webpack_require__(271);
+
+	var _session = __webpack_require__(446);
 
 	var _session2 = _interopRequireDefault(_session);
 
@@ -38328,11 +38313,12 @@
 
 	exports.default = (0, _redux.combineReducers)({
 	  routing: _reactRouterRedux.routerReducer,
-	  session: _session2.default
+	  session: _session2.default,
+	  form: _reduxForm.reducer
 	});
 
 /***/ },
-/* 445 */
+/* 446 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -38354,7 +38340,7 @@
 	}
 
 /***/ },
-/* 446 */
+/* 447 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -38587,7 +38573,7 @@
 	module.exports = createLogger;
 
 /***/ },
-/* 447 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

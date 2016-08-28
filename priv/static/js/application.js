@@ -81,20 +81,23 @@
 
 	var _signup2 = _interopRequireDefault(_signup);
 
+	var _signin = __webpack_require__(322);
+
+	var _signin2 = _interopRequireDefault(_signin);
+
+	var _authenticatedContainer = __webpack_require__(323);
+
+	var _authenticatedContainer2 = _interopRequireDefault(_authenticatedContainer);
+
 	var _reactRouter = __webpack_require__(178);
 
 	var _reactRedux = __webpack_require__(246);
 
-	var _store = __webpack_require__(324);
+	var _store = __webpack_require__(325);
 
 	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// const middleware = applyMiddleware(thunk, logger());
-	// let store = createStore(reducer, applyMiddleware(thunk));
-	// store.dispatch({type: 'test'});
-
 
 	//Entry point for the ReactJS Portion of the Application
 	var RouterFramework = _react2.default.createElement(
@@ -103,13 +106,14 @@
 		_react2.default.createElement(
 			_reactRouter.Router,
 			{ history: _reactRouter.hashHistory },
+			_react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _signup2.default }),
+			_react2.default.createElement(_reactRouter.Route, { path: '/signin', component: _signin2.default }),
 			_react2.default.createElement(
 				_reactRouter.Route,
-				{ path: '/', component: _index2.default },
+				{ path: '/', component: _authenticatedContainer2.default },
 				_react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
 				_react2.default.createElement(_reactRouter.Route, { path: '/contacts', component: _contacts2.default }),
-				_react2.default.createElement(_reactRouter.Route, { path: '/about', component: _about2.default }),
-				_react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _signup2.default })
+				_react2.default.createElement(_reactRouter.Route, { path: '/about', component: _about2.default })
 			)
 		)
 	);
@@ -21664,14 +21668,15 @@
 	                            { to: '/contacts' },
 	                            'Contact'
 	                        )
-	                    ),
-	                    loginComponent,
-	                    this.state.loggedIn ? "" : _react2.default.createElement(SignupComponent, null)
+	                    )
 	                )
 	            )
 	        );
 	    }
 	});
+
+	// {loginComponent}
+	// {this.state.loggedIn?"":<SignupComponent/>}
 
 	exports.default = Header;
 
@@ -27496,28 +27501,25 @@
 	  return errors;
 	}
 
-	var ContactForm = function (_Component) {
-	  _inherits(ContactForm, _Component);
+	var SignupForm = function (_Component) {
+	  _inherits(SignupForm, _Component);
 
-	  function ContactForm(props, context) {
-	    _classCallCheck(this, ContactForm);
+	  function SignupForm(props, context) {
+	    _classCallCheck(this, SignupForm);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ContactForm).call(this, props, context));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SignupForm).call(this, props, context));
 
-	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this._handleSubmit = _this._handleSubmit.bind(_this);
 	    // var {store} = this.context;
 	    // console.log("store",store);
 	    return _this;
 	  }
 
-	  _createClass(ContactForm, [{
-	    key: 'handleSubmit',
-	    value: function handleSubmit(data) {
-	      //do stuff here
-	      // e.preventDefault();
+	  _createClass(SignupForm, [{
+	    key: '_handleSubmit',
+	    value: function _handleSubmit(data) {
+
 	      console.log("handleSubmit here!", data);
-	      // make ajax call here
-	      // console.log("context in handleSubmit", this.context);
 	      var store = this.context.store;
 
 	      store.dispatch((0, _signupActions.signupPostRequest)(data));
@@ -27536,7 +27538,7 @@
 
 	      return _react2.default.createElement(
 	        'form',
-	        { onSubmit: handleSubmit(this.handleSubmit) },
+	        { onSubmit: handleSubmit(this._handleSubmit) },
 	        _react2.default.createElement(
 	          'label',
 	          null,
@@ -27594,23 +27596,23 @@
 	    }
 	  }]);
 
-	  return ContactForm;
+	  return SignupForm;
 	}(_react.Component);
 
-	ContactForm.propTypes = {
+	SignupForm.propTypes = {
 	  handleSubmit: _react.PropTypes.func,
 	  fields: _react.PropTypes.object
 	};
-	ContactForm.contextTypes = {
+	SignupForm.contextTypes = {
 	  store: _react2.default.PropTypes.object.isRequired
 	};
-	ContactForm = (0, _reduxForm.reduxForm)({
-	  form: 'contact', // the username of your form and the key to               // where your form's state will be mounted
+	SignupForm = (0, _reduxForm.reduxForm)({
+	  form: 'signup', // the username of your form and the key to               // where your form's state will be mounted
 	  fields: ['username', 'email', 'password', 'passwordAgain'], // a list of all your fields in your form
 	  validate: validateSignup // a synchronous validation function
-	})(ContactForm);
+	})(SignupForm);
 
-	exports.default = ContactForm;
+	exports.default = SignupForm;
 
 /***/ },
 /* 245 */
@@ -32562,31 +32564,57 @@
 
 /***/ },
 /* 321 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.submitSignupForm = submitSignupForm;
 	exports.signupPostRequest = signupPostRequest;
 	exports.signupSuccess = signupSuccess;
 	exports.signupFailure = signupFailure;
+
+	var _reduxSimpleRouter = __webpack_require__(324);
+
+	var _store = __webpack_require__(325);
+
 	//SIGN UP ACTIONS
-
-
-	// export function submitSignupForm(data){
-	// 	return {
-	// 		type: 'SUBMIT_SIGNUP_FORM',
-	// 		data: data
-	// 	}
-	// }
-
-	function signupPostRequest(data) {
-		console.log("dispatch signupPost action");
+	function submitSignupForm(data) {
+		console.log("submit signup form action fired");
 		return {
 			type: 'SUBMIT_SIGNUP_FORM',
 			data: data
+		};
+	}
+
+	function signupPostRequest(data) {
+		console.log("dispatch signupPost action");
+		return function (dispatch) {
+			console.log("dispatch function", dispatch);
+			dispatch({
+				type: 'SUBMIT_SIGNUP_FORM',
+				data: data
+			});
+
+			new Promise(function (resolve, reject) {
+				resolve("pretend success");
+			}).then(function (response) {
+				console.log("resolve", response);
+
+				// localStorage.setItem("phoenixAuthToken", response.jwt);
+				dispatch({
+					type: 'CURRENT_USER',
+					currentUser: response.user // get the current user from response
+				});
+
+				dispatch(_reduxSimpleRouter.routeActions.push('/'));
+				// dispatch(signupSuccess(data, response));
+			}).catch(function (error) {
+				console.log("error", error);
+				// dispatch(signupFailure(data, error));
+			});
 		};
 	}
 
@@ -32605,6 +32633,426 @@
 
 /***/ },
 /* 322 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reduxForm = __webpack_require__(245);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function validateSignin(data) {
+
+	  var errors = {};
+	  if (!data.username) {
+	    errors.username = 'Required';
+	  }
+	  if (data.password != undefined && data.passwordAgain != undefined) {
+	    if (data.password.length < 6 || data.passwordAgain.length < 6) {
+	      errors.password = 'Password must be at least 6 characters';
+	    } else if (data.password != data.passwordAgain) {
+	      errors.password = 'You entered two different passwords';
+	    }
+	  }
+
+	  if (!data.email) {
+	    errors.email = 'Email required';
+	  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
+	    errors.email = 'Invalid email address';
+	  }
+
+	  return errors;
+	}
+
+	var SigninForm = function (_Component) {
+	  _inherits(SigninForm, _Component);
+
+	  function SigninForm(props, context) {
+	    _classCallCheck(this, SigninForm);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SigninForm).call(this, props, context));
+
+	    _this._handleSubmit = _this._handleSubmit.bind(_this);
+	    // var {store} = this.context;
+	    // console.log("store",store);
+	    return _this;
+	  }
+
+	  _createClass(SigninForm, [{
+	    key: '_handleSubmit',
+	    value: function _handleSubmit(data) {
+	      console.log("handle signin here!", data);
+	      // make ajax call here
+
+	      var store = this.context.store;
+	      // store.dispatch(signupPostRequest(data));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var _props$fields = _props.fields;
+	      var username = _props$fields.username;
+	      var password = _props$fields.password;
+	      var handleSubmit = _props.handleSubmit;
+	      // console.log("context",this.context)
+
+	      return _react2.default.createElement(
+	        'form',
+	        { onSubmit: handleSubmit(this._handleSubmit) },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Username'
+	        ),
+	        _react2.default.createElement('input', _extends({ type: 'text' }, username)),
+	        '     ',
+	        username.error && username.touched && _react2.default.createElement(
+	          'div',
+	          null,
+	          username.error
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Password'
+	        ),
+	        _react2.default.createElement('input', _extends({ type: 'password' }, password)),
+	        '    ',
+	        password.error && password.touched && _react2.default.createElement(
+	          'div',
+	          null,
+	          password.error
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'submit' },
+	          'Submit'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SigninForm;
+	}(_react.Component);
+
+	SigninForm.propTypes = {
+	  handleSubmit: _react.PropTypes.func,
+	  fields: _react.PropTypes.object
+	};
+	SigninForm.contextTypes = {
+	  store: _react2.default.PropTypes.object.isRequired
+	};
+	SigninForm = (0, _reduxForm.reduxForm)({
+	  form: 'signin',
+	  fields: ['username', 'password'], // a list of all your fields in your form
+	  validate: validateSignin // a synchronous validation function
+	})(SigninForm);
+
+	exports.default = SigninForm;
+
+/***/ },
+/* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(246);
+
+	var _reduxSimpleRouter = __webpack_require__(324);
+
+	var _header = __webpack_require__(177);
+
+	var _header2 = _interopRequireDefault(_header);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AuthenticatedContainer = function (_React$Component) {
+	  _inherits(AuthenticatedContainer, _React$Component);
+
+	  function AuthenticatedContainer() {
+	    _classCallCheck(this, AuthenticatedContainer);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(AuthenticatedContainer).apply(this, arguments));
+	  }
+
+	  _createClass(AuthenticatedContainer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _props = this.props;
+	      var dispatch = _props.dispatch;
+	      var currentUser = _props.currentUser;
+
+	      console.log("component did mount");
+
+	      if (localStorage.getItem('phoenixAuthToken')) {
+	        // dispatch(Actions.currentUser());
+	        console.log("currentUser exists");
+	      } else {
+	        console.log("push signup");
+	        dispatch(_reduxSimpleRouter.routeActions.push('/signup'));
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_header2.default, null),
+	        this.props.children
+	      );
+	    }
+	  }]);
+
+	  return AuthenticatedContainer;
+	}(_react2.default.Component);
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    currentUser: state.sessionReducer.currentUser
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(AuthenticatedContainer);
+
+/***/ },
+/* 324 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.routeReducer = routeReducer;
+	exports.syncHistory = syncHistory;
+	// Constants
+
+	var TRANSITION = exports.TRANSITION = '@@router/TRANSITION';
+	var UPDATE_LOCATION = exports.UPDATE_LOCATION = '@@router/UPDATE_LOCATION';
+
+	var SELECT_STATE = function SELECT_STATE(state) {
+	  return state.routing;
+	};
+
+	function transition(method) {
+	  return function (arg) {
+	    return {
+	      type: TRANSITION,
+	      payload: { method: method, arg: arg }
+	    };
+	  };
+	}
+
+	var routeActions = exports.routeActions = {
+	  push: transition('push'),
+	  replace: transition('replace'),
+	  go: transition('go'),
+	  goBack: transition('goBack'),
+	  goForward: transition('goForward')
+	};
+
+	function updateLocation(location) {
+	  return {
+	    type: UPDATE_LOCATION,
+	    payload: location
+	  };
+	}
+
+	// Reducer
+
+	var initialState = {
+	  location: undefined
+	};
+
+	function routeReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	  var _ref = arguments[1];
+	  var type = _ref.type;
+	  var location = _ref.payload;
+
+	  if (type !== UPDATE_LOCATION) {
+	    return state;
+	  }
+
+	  return _extends({}, state, { location: location });
+	}
+
+	// Syncing
+
+	function syncHistory(history) {
+	  var unsubscribeHistory = undefined,
+	      currentKey = undefined,
+	      unsubscribeStore = undefined;
+	  var connected = false,
+	      syncing = false;
+
+	  function middleware(store) {
+	    unsubscribeHistory = history.listen(function (location) {
+	      currentKey = location.key;
+	      if (syncing) {
+	        // Don't dispatch a new action if we're replaying location.
+	        return;
+	      }
+
+	      store.dispatch(updateLocation(location));
+	    });
+
+	    connected = true;
+
+	    return function (next) {
+	      return function (action) {
+	        if (action.type !== TRANSITION || !connected) {
+	          return next(action);
+	        }
+
+	        var _action$payload = action.payload;
+	        var method = _action$payload.method;
+	        var arg = _action$payload.arg;
+
+	        history[method](arg);
+	      };
+	    };
+	  }
+
+	  middleware.listenForReplays = function (store) {
+	    var selectRouterState = arguments.length <= 1 || arguments[1] === undefined ? SELECT_STATE : arguments[1];
+
+	    var getRouterState = function getRouterState() {
+	      return selectRouterState(store.getState());
+	    };
+
+	    var _getRouterState = getRouterState();
+
+	    var initialLocation = _getRouterState.location;
+
+	    unsubscribeStore = store.subscribe(function () {
+	      var _getRouterState2 = getRouterState();
+
+	      var location = _getRouterState2.location;
+
+	      // If we're resetting to the beginning, use the saved initial value. We
+	      // need to dispatch a new action at this point to populate the store
+	      // appropriately.
+
+	      if (!location) {
+	        history.transitionTo(initialLocation);
+	        return;
+	      }
+
+	      // Otherwise, if we need to update the history location, do so without
+	      // dispatching a new action, as we're just bringing history in sync
+	      // with the store.
+	      if (location.key !== currentKey) {
+	        syncing = true;
+	        history.transitionTo(location);
+	        syncing = false;
+	      }
+	    });
+	  };
+
+	  middleware.unsubscribe = function () {
+	    unsubscribeHistory();
+	    if (unsubscribeStore) {
+	      unsubscribeStore();
+	    }
+
+	    connected = false;
+	  };
+
+	  return middleware;
+	}
+
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _redux = __webpack_require__(253);
+
+	var _reduxThunk = __webpack_require__(326);
+
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+	var _reduxLogger = __webpack_require__(327);
+
+	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
+	var _reduxForm = __webpack_require__(245);
+
+	var _signupReducer = __webpack_require__(328);
+
+	var _session = __webpack_require__(329);
+
+	var _reduxSimpleRouter = __webpack_require__(324);
+
+	var _reactRouter = __webpack_require__(178);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var reduxRouterMiddleware = (0, _reduxSimpleRouter.syncHistory)(_reactRouter.hashHistory);
+
+	var reducers = {
+		form: _reduxForm.reducer,
+		signupReducer: _signupReducer.signupReducer,
+		sessionReducer: _session.sessionReducer,
+		routing: _reduxSimpleRouter.routeReducer
+	};
+
+	var reducer = (0, _redux.combineReducers)(reducers);
+
+	var store = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_reduxThunk2.default, reduxRouterMiddleware));
+	store.dispatch({ type: 'test' });
+
+	console.log("state", store.getState());
+
+	exports.default = store;
+
+/***/ },
+/* 326 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32632,7 +33080,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 323 */
+/* 327 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32865,7 +33313,7 @@
 	module.exports = createLogger;
 
 /***/ },
-/* 324 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32873,50 +33321,9 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
-	var _redux = __webpack_require__(253);
-
-	var _reduxForm = __webpack_require__(245);
-
-	var _reduxThunk = __webpack_require__(322);
-
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-	var _reduxLogger = __webpack_require__(323);
-
-	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
-
-	var _signupReducer = __webpack_require__(325);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var reducers = {
-		form: _reduxForm.reducer,
-		signupReducer: _signupReducer.signupReducer
-	};
-
-	var reducer = (0, _redux.combineReducers)(reducers);
-
-	var store = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_reduxThunk2.default));
-	store.dispatch({ type: 'test' });
-
-	exports.default = store;
-
-/***/ },
-/* 325 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
 	exports.signupReducer = signupReducer;
 
-	var _store = __webpack_require__(324);
+	var _store = __webpack_require__(325);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -32935,31 +33342,38 @@
 		var action = arguments[1];
 
 		if (action.type == "SUBMIT_SIGNUP_FORM") {
-			var _ret = function () {
-				// console.log("submit signup form reducer works");
-				// const ajaxCall = 
-				var ajaxCall = function ajaxCall(data) {
-					return new Promise(function (resolve, reject) {
-						resolve("pretend success");
-					});
-				};
 
-				var data = action.data;
-				ajaxCall(data).then(function (response) {
-					console.log(response);
-					_store2.default.dispatch((0, _signupActions.signupSuccess)(data, response));
-				}).catch(function (error) {
-					console.log(error);
-					_store2.default.dispatch((0, _signupActions.signupFailure)(data, error));
-				});
-				return {
-					v: state
-				};
-			}();
-
-			if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+			return state;
 		} else if (action.type == "SIGNUP_SUCCESS") {} else if (action.type == "SIGNUP_FAILURE") {}
 		return state;
+	}
+
+/***/ },
+/* 329 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.sessionReducer = sessionReducer;
+	var initialState = {
+	  currentUser: null
+	};
+
+	function sessionReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	  var action = arguments[1];
+
+	  if (action.type == 'CURRENT_USER') {
+	    return _extends({}, state, { currentUser: action.currentUser });
+	  }
+
+	  return state;
 	}
 
 /***/ }

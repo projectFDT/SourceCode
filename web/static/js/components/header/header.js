@@ -44,8 +44,7 @@ const Header = React.createClass ({
         			<li><Link to="/">Home</Link></li>
         			<li><Link to="/about">About</Link></li>
         			<li><Link to="/contacts">Contact</Link></li>
-                    {loginComponent}
-                    {this.state.loggedIn?"":<SignupComponent/>}
+                    
         		</ul>
                 </nav>
                 
@@ -53,5 +52,8 @@ const Header = React.createClass ({
         );
   }
 });
+
+// {loginComponent}
+// {this.state.loggedIn?"":<SignupComponent/>}
 
 export default Header;

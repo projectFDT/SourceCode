@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import {signupPostRequest} from '../../actions/signupActions.js';
-function validateSignup(data) {
+function validateSignin(data) {
   
   const errors = {};
   if (!data.username) {
@@ -24,7 +23,7 @@ function validateSignup(data) {
   return errors;
 }
 
-class SignupForm extends Component {
+class SigninForm extends Component {
   
   constructor(props, context){
     super(props, context);
@@ -34,15 +33,16 @@ class SignupForm extends Component {
   }
 
   _handleSubmit(data) {
-    
-    console.log("handleSubmit here!", data);
+    console.log("handle signin here!", data);
+    // make ajax call here
+  
     const {store} = this.context;
-    store.dispatch(signupPostRequest(data));
+    // store.dispatch(signupPostRequest(data));
 
   }
 
   render() {
-    const { fields: {username, email, password, passwordAgain}, handleSubmit} = this.props;
+    const { fields: {username,password}, handleSubmit} = this.props;
     // console.log("context",this.context)
     
     return (
@@ -51,17 +51,9 @@ class SignupForm extends Component {
         <input type="text" {...username}/>     {/* will pass value, onBlur and onChange */}
         {username.error && username.touched && <div>{username.error}</div>}
 
-        <label>Email Address</label>
-        <input type="text" {...email}/>  {/* will pass value, onBlur and onChange*/}
-        {email.error && email.touched && <div>{email.error}</div>}
-
         <label>Password</label>
         <input type="password" {...password}/>    {/* will pass value, onBlur and onChange */}
         {password.error && password.touched && <div>{password.error}</div>}
-  
-        <label>Re-Enter Password</label>
-        <input type="password" {...passwordAgain}/>    {/* will pass value, onBlur and onChange */}
-        {passwordAgain.error && passwordAgain.touched && <div>{passwordAgain.error}</div>}
 
         <button type='submit'>Submit</button>
       </form>
@@ -69,18 +61,18 @@ class SignupForm extends Component {
   }
 }
 
-SignupForm.propTypes = {
+SigninForm.propTypes = {
     handleSubmit: PropTypes.func,
     fields: PropTypes.object
 }
-SignupForm.contextTypes = {
+SigninForm.contextTypes = {
   store: React.PropTypes.object.isRequired
 }
-SignupForm = reduxForm({
-    form: 'signup',                      // the username of your form and the key to               // where your form's state will be mounted
-    fields: ['username', 'email', 'password', 'passwordAgain'], // a list of all your fields in your form
-    validate: validateSignup             // a synchronous validation function
-  })(SignupForm);
+SigninForm = reduxForm({
+    form: 'signin',                      
+    fields: ['username', 'password'], // a list of all your fields in your form
+    validate: validateSignin             // a synchronous validation function
+  })(SigninForm);
 
 
-export default SignupForm;
+export default SigninForm;

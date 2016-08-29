@@ -29201,11 +29201,11 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _class, _temp;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _react = __webpack_require__(4);
 
@@ -29213,9 +29213,11 @@
 
 	var _reduxForm = __webpack_require__(271);
 
-	var _simple_card = __webpack_require__(448);
+	var _simple_card = __webpack_require__(441);
 
 	var _simple_card2 = _interopRequireDefault(_simple_card);
+
+	var _sign_in_validation = __webpack_require__(448);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29224,6 +29226,19 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var renderInput = function renderInput(field) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement('input', _extends({}, field.input, { type: field.type })),
+	    field.meta.touched && field.meta.error && _react2.default.createElement(
+	      'span',
+	      { className: 'error' },
+	      field.meta.error
+	    )
+	  );
+	};
 
 	var SignUp = (_temp = _class = function (_Component) {
 	  _inherits(SignUp, _Component);
@@ -29243,6 +29258,7 @@
 	    key: 'render',
 	    value: function render() {
 	      var handleSubmit = this.props.handleSubmit;
+
 
 	      return _react2.default.createElement(
 	        _simple_card2.default,
@@ -29310,22 +29326,9 @@
 	  handleSubmit: _react.PropTypes.func
 	}, _temp);
 	exports.default = (0, _reduxForm.reduxForm)({
-	  form: 'signUp'
+	  form: 'signUp',
+	  validate: _sign_in_validation.registrationValidation
 	})(SignUp);
-
-
-	var renderInput = function renderInput(field) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement('input', _extends({}, field.input, { type: field.type })),
-	    field.meta.touched && field.meta.error && _react2.default.createElement(
-	      'span',
-	      { className: 'error' },
-	      field.meta.error
-	    )
-	  );
-	};
 
 /***/ },
 /* 271 */
@@ -38097,7 +38100,68 @@
 	exports.default = propTypes;
 
 /***/ },
-/* 441 */,
+/* 441 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SimpleCard = function (_React$Component) {
+	  _inherits(SimpleCard, _React$Component);
+
+	  function SimpleCard(props) {
+	    _classCallCheck(this, SimpleCard);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SimpleCard).call(this, props));
+	  }
+
+	  _createClass(SimpleCard, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "row" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "col s12 m8" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "card" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "card-content" },
+	              this.props.children
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SimpleCard;
+	}(_react2.default.Component);
+
+	exports.default = SimpleCard;
+
+/***/ },
 /* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -38574,65 +38638,42 @@
 
 /***/ },
 /* 448 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
+	exports.registrationValidation = registrationValidation;
+	/*
+	For the Username and Email need Async Promise checkers in order to determine if
+	username and email are already in use.
+	*/
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	function registrationValidation(values) {
 
-	var _react = __webpack_require__(4);
+	  var errors = {};
 
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SimpleCard = function (_React$Component) {
-	  _inherits(SimpleCard, _React$Component);
-
-	  function SimpleCard(props) {
-	    _classCallCheck(this, SimpleCard);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SimpleCard).call(this, props));
+	  /*Username error checks*/
+	  if (!values.username) {
+	    errors.username = "Username is required";
+	  } else if (values.username.length < 5 || values.username.length > 32) {
+	    errors.username = "Username can only be between 5 and 32 characters long";
 	  }
 
-	  _createClass(SimpleCard, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "row" },
-	        _react2.default.createElement(
-	          "div",
-	          { className: "col s12 m8" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "card" },
-	            _react2.default.createElement(
-	              "div",
-	              { className: "card-content" },
-	              this.props.children
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
+	  /*Email error checks*/
+	  if (!values.email) {
+	    errors.email = "Email is required";
+	  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+	    errors.email = "Invalid email address";
+	  }
 
-	  return SimpleCard;
-	}(_react2.default.Component);
+	  /*Password check*/
+	  if (!values.password) {}
 
-	exports.default = SimpleCard;
+	  return errors;
+	}
 
 /***/ }
 /******/ ]);

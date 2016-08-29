@@ -1,7 +1,15 @@
-import React, { Component, PropTypes }       from 'react';
-import { reduxForm, Field  }                 from 'redux-form';
-import SimpleCard                            from '../../layouts/simple_card.js'
+import React, { Component, PropTypes }            from 'react';
+import { reduxForm, Field  }                      from 'redux-form';
+import SimpleCard                                 from '../../layouts/simple_card.js'
+import { registrationValidation as validate }     from '../../helpers/sign_in_validation'
 
+
+const renderInput = field =>{
+  return(<div>
+    <input {...field.input} type={field.type}/>
+    {field.meta.touched && field.meta.error && <span className="error">{field.meta.error}</span>}
+  </div>);
+}
 
 class SignUp extends Component {
 
@@ -20,6 +28,7 @@ class SignUp extends Component {
 
   render(){
     const { handleSubmit } = this.props;
+
     return(
       <SimpleCard>
         <span className="card-title black-text">Sign Up</span>
@@ -48,12 +57,6 @@ class SignUp extends Component {
 }
 
 export default reduxForm({
-  form: 'signUp'
+  form: 'signUp',
+  validate
 })(SignUp);
-
-
-const renderInput = field =>
-  <div>
-    <input {...field.input} type={field.type}/>
-    {field.meta.touched && field.meta.error && <span className="error">{field.meta.error}</span>}
-  </div>
